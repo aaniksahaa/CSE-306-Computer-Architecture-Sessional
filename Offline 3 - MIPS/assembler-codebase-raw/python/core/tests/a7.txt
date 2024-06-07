@@ -1,0 +1,20 @@
+andi $t0, $zero, 5        #0 $t0 = 0
+ori $t1, $zero, 5         #1 $t1 = 5
+add $t0, $zero, $zero     #2 Initialize $t0 to 						$t0=0
+addi $t1, $zero, 5        #3 Load 5 into $t1						t1=5
+addi $t2, $zero, 3        #4 Load 3 into $t2						t2=3
+add $t3, $t1, $t2         #5 Add $t1 and $t2, store result in $t3 			t3=(5 + 3 = 8)
+sub $t4, $t1, $t3         #6 Subtract $t1 from $t3, store result in $t4 		t4=(-8 + 5 = -3)
+and $t0, $t3, $t2         #7 Bitwise AND $t3 and $t2, store result in $t0 		t0=(8 AND 3 = 0)
+or $t0, $t3, $t2          #8 Bitwise OR $t3 and $t2, store result in $t0		t0=(8 OR 3 = 11)
+sll $t0, $t2, 2           #9 Shift $t2 left by 2 bits, store result in $t0 		t0=(3 << 2 = 12)
+srl $t0, $t0, 1           #10 Logical shift right $t5 by 1 bit, store result in $t0 	t0=(12 >> 1 = 6)
+nor $t0, $t0, $t4         #11 Bitwise NOR $t0 and $t4, store result in $t0 		(-3 NOR 6 = 0)
+addi $t0, $zero, 1        #12 $t0 = 1
+sw $t3, 1($t0)		      #13 mem[2] = 8
+	
+push 1($t0)               #14-16   stack top = 8           # 3 cycles                                                     store=8
+pop $t2			          #17-18   $t2 = 8                 # 2 cycles
+
+addi $t3, $t2, 2          #19   $t3 = 8 + 2 = 10
+	

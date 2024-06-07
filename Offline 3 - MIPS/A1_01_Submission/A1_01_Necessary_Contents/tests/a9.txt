@@ -1,0 +1,58 @@
+
+main:
+
+    # Initialization
+
+    addi $t1, $zero, 3          #0      $t1 = 3                    
+    subi $t2, $zero, 2          #1      $t2 = -2                  
+    
+    # Arithmetic operations
+
+    add $t0, $t1, $t2           #2      $t0 = 3 + (-2) = 1           # Addition: $t1 + $t2
+    sub $t3, $t1, $t2           #3      $t3 = 3 - (-2) = 5           # Subtraction: $t1 - $t2
+    addi $t4, $zero, -2         #4      $t4 = -2                     # addi
+    
+    # Memory operations
+
+    sw $t1, 4($zero)            #5      Memory[4] = 3                # Store word: Memory[$zero + result] = $t1
+    
+    # Logical and shift operations
+
+    srl $t2, $t2, 1             #6      $t2 = -2 >> 1 = 7            # Logical right shift: $t2 >> 1
+    push $t2			        #7-8    stack top = 7
+    sll $t3, $t3, 1             #9      $t3 = 5 << 1 = 10   = -6     #  Logical left shift: $t3 << 1
+    push $t3			        #10-11  top = 10 = -6
+    pop $t0			            #12-13  $t0 = -6
+    pop $t1			            #14-15  $t1 = 7
+    add $t3,$zero,$t0		    #16     $t3 = $t0 = -6
+    add $t2,$zero,$t1		    #17     $t2 = 7
+
+    # Conditional branch and jump
+
+    bneq $t2, $t3, label1       #18 Branch if $t2 == $t3, goto label1 
+    j end                       #19 Jump to end
+    
+label1:
+    bneq $t1, $t2, label2       #25 Branch if $t1 != $t2
+    
+label2:
+
+    # Logical and bitwise operations
+
+    or $t0, $t0, $t2            #26 $t0 = -6 | 7 = 15           # Bitwise OR: $t0 | $t2
+    andi $t2, $t4, 1            #27 $t2 = 14 & 1 = 0            # Bitwise AND with immediate: $t4 & 1
+    ori $t1, $t1, 5             #28 $t1 = 3 | 5 = 7             # Bitwise OR with immediate: $t1 | 5
+    and $t1, $t2, $t4           #29 $t1 = 0 & -2 = 0            # Bitwise AND: $t2 & $t4
+    push 4($t1)                 #30-32  stack top = 3
+
+label3:
+
+	pop $t4                     #33-34  
+	beq $t4,$zero,end           #35     branch not
+	subi $t4,$t4,1              #36     
+	push $t4                    #37-38
+	j label3                    #39
+    
+end:
+
+    addi $t0, $zero, -5         #40 $t0 = -5    

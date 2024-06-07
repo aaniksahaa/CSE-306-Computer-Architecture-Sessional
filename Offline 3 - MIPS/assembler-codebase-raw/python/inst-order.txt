@@ -1,0 +1,16 @@
+srl
+subi
+beq
+nor
+sw
+sll
+lw
+andi
+and
+bneq
+j
+addi
+or
+sub
+ori
+add

@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{a}
+\author{Al Muhit Muhtadi}
+\date{December 2023}
+
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={6.5in, 8.5in}]{geometry}
+\usepackage{authblk}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{biblatex}
+\usepackage{rotating}
+\usepackage{ragged2e}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[label=corner]{karnaugh-map}
+\usepackage[siunitx, RPvoltages]{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+
+\begin{document}
+
+\maketitle
+
+\section{\large{Truth Table}}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+    \hline
+         cs2 & cs1 & cs0 & $X_{i}$ & $Y_i$ & $Z_{i}$ & $C_{in}$ & Function  \\
+         \hline
+         0 & 0 & 0 & $A_{i}$ & $B_{i}$ & $C_{i}$ & 0 & Add \\
+         0 & 0 & 1 & $\Bar{A_i}$ & 0 & $C_i$ & 1 & NEG A \\
+         0 & 1 & 0 & $A_{i}$ & $B_{i}$ & $C_{i}$ & 0 & Add \\
+         0 & 1 & 1 & $A_{i}$ & $B_{i}$ & $C_{i}$ & 1 & Add with carry \\
+         1 & 0 & 0 & $A_i$ & 0 & $C_i$ & 1 & Increment A \\
+         1 & 0 & 1 & $A_{i}B_{i}$ & 0 & $C_i$ & 0 & AND \\
+         1 & 1 & 0 & $A_i \oplus B_i$ & 0 & $C_i$ & 0 & XOR \\
+         1 & 1 & 1 & $A_i \oplus B_i$ & 0 & $C_i$ & 0 & XOR \\
+         \hline
+    \end{tabular}
+    \caption{Truth Table of Intermediate I/O}
+    \label{tab:truth_table1}
+\end{table}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+         cs2 & cs1 & cs0 & $X_{i}$ & $S_{x_1}$ & $S_{x_0}$  \\
+         \hline
+         0 & 0 & 0 & $A_{i}$ & 0 & 0 \\
+         0 & 0 & 1 & $\bar{A_i}$ & 0 & 1 \\
+         0 & 1 & 0 & $A_{i}$ & 0 & 0 \\
+         0 & 1 & 1 & $A_{i}$ & 0 & 0 \\
+         1 & 0 & 0 & $A_i$ & 0 & 0\\
+         1 & 0 & 1 & $A_{i}B_{i}$ & 1 & 1\\
+         1 & 1 & 0 & $A_i \oplus B_i$ & 1 & 0 \\
+         1 & 1 & 1 & $A_i \oplus B_i$ & 1 & 0 \\
+         \hline
+    \end{tabular}
+    \caption{Truth Table of MUX input for $X_i$}
+    \label{tab:truth_table2}
+\end{table}
+
+\begin{table}[H]
+    
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+         cs2 & cs1 & cs0 & $X_{i}$ & $S_{y_0}$  \\
+         \hline
+         0 & 0 & 0 & $B_{i}$ & 0 \\
+         0 & 0 & 1 & 0 & 1 \\
+         0 & 1 & 0 & $B_{i}$ & 0  \\
+         0 & 1 & 1 & $B_{i}$ & 0  \\
+         1 & 0 & 0 & 0 & 1\\
+         1 & 0 & 1 & 0 & 1\\
+         1 & 1 & 0 & 0 & 1\\
+         1 & 1 & 1 & 0 & 1\\
+         \hline
+    \end{tabular}
+    \caption{Truth Table of MUX input for $Y_i$}
+    \label{tab:truth_table3}
+\end{table}
+
+
+
+\end{document}

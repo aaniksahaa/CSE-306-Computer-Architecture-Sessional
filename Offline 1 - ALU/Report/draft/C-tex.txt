@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage[a4paper, total={6.5in, 8.5in}]{geometry}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[label=corner]{karnaugh-map}
+\title{Draft - C}
+\author{Amim}
+
+\begin{document}
+
+\section{Detailed design steps with K-Maps}
+\subsection{Design Steps}
+\begin{enumerate}
+  
+    
+
+    \item Here we have to perform four types of arithmetic operations (Add, Negation, Add with carry, Increment) and two types of logical operations(logical AND , logical XOR).
+
+    \item For the adder,the first input $X_i$ is either $A_i$ or $\overline{A_i}$ or $A_i B_i$  or $A_i \oplus B_i$.We used a $4 \times 1$    multiplexer  for  each  bit.
+     The MUX has  $S_{x_1}$ and $S_{x_0}$ as selection bits.The selection bits are controlled by control bits($c_{s_2}$,$c_{s_1}$,$c_{s_0}$).The details is shown in the truth table and k-Map.
+
+     \item For the adder,the second input $Y_i$ is either $B_i$ or 0. We used a $2 \times 1$ multiplexer for each bit. 
+     The mux has $S_{y_0}$ as its selection bit.The selection bit is controlled by control bits($c_{s_2}$,$c_{s_1}$,$c_{s_0}$).The details in shown in the truth table and k-Map.
+
+    \item The input carry($C_{in}$) of the adder IC is either 0 or 1.It should be zero for negation, add with carry, and increment operations.This is also controlled by control bits($c_{s_2}$,$c_{s_1}$,$c_{s_0}$).The details is shown in the truth table and k-Map.
+
+    \item In the arithmetic unit, the adder adds $A$, $B$ with $C_{in}=0$ and $C_{in}=1$ for Add, Add with Carry operations respectively. The multiplexers provide $Y_i$ as a 0 for increment operation.During negation,$X_i$=$\overline{A_i}$ and $Y_i$=0 and $C_{in}$=1. 
+    
+    \item During logical operations,$X_i$ is transferred as $Y_i$=0 and $C_{in}$=0.
+
+    \item Zero flag, ZF is computed by adding the 4 output bits using 3 OR gates and then inverting $O_0 + O_1+O_2+O_3$ by 1 XOR gate($X\oplus1=\overline{X}$).
+    \item The carry flag($C$) is directly obtained from $C_{out}$ of the parallel adder
+    \item The sign flag(SF) is obtained from the MSB of the sum($S_3$).
+    \item  For the overflow flag,we needed $C_{out}$ and $C_3$. $C_{out}$ is directly accessible from the Adder IC. $C_3$ is calculated as below:
+    \begin{center}
+        $S_3$ = $X_3 \oplus Y_3 \oplus C_3$\\
+        $S_3 \oplus C_3$ = $X_3 \oplus Y_3$\\
+        $C_3$ = $X_3 \oplus Y_3 \oplus S_3$\\
+        OF = $C_{out} \oplus C_3$\\
+        OF = $C_{out} \oplus X_3 \oplus Y_3 \oplus  S_3$
+        
+        
+    \end{center}
+        
+
+\end{enumerate}
+
+\subsection{K-maps}
+We will be following Table \ref{tab:truth_table} to construct the K-maps for selection bits of multiplexers and $C_{in}$.\\
+\subsubsection{K-maps for $S_{x_1}$ and $S_{x_0}$}
+The IC of parallel adder takes $X_i$ and $Y_i$ and $C_{in}$ as input.We need  $X_i$  as $A_i$ or its complement or its logical changes with B.This values are  received as $X_i$(output of the multiplexer) and the kmap for selection bits($S_{x_1}$ and $S_{x_0}$) of the multiplexer are as follows:\\
+
+
+\subsubsection{K-map for $S_{x_1}$}
+\begin{center}
+\begin{karnaugh-map}[2][4][1][$cs0$][$cs1$][$cs2$]
+    \minterms{5,6,7}
+    \maxterms{0,1,2,3,4}
+    \implicant{7}{5}
+    \implicant{6}{7}
+\end{karnaugh-map}
+\end{center}
+We can easily express $S_{x_1}$ as sum of minterms. 
+
+\[S_{x_1}=c_{s_2}c_{s_1}+ c_{s_2}c_{s_0}\]
+\[S_{x_1}=c_{s_2}(c_{s_1}+c_{s_0})\]
+
+
+
+
+
+\subsubsection{K-map for $S_{x_0}$}
+
+\begin{center}
+\begin{karnaugh-map}[2][4][1][$cs0$][$cs1$][$cs2$]
+    \minterms{1,5}
+    \maxterms{0,2,3,4,6,7}
+    \implicantedge{1}{1}{5}{5}
+    %\implicant{6}{7}
+\end{karnaugh-map}
+\end{center}
+So, there are two minterms.
+\[ S_{x_0} = {\overline{c_{s_1}}c_{s_0}}\]
+
+
+
+\subsubsection{K-map for $S_{y_0}$}
+$S_{y_0}$ is the selection bit for the multiplexer that selects B and 0 as input of a 2*1 MUX .
+\begin{center}
+\begin{karnaugh-map}[2][4][1][$cs0$][$cs1$][$cs2$]
+    \minterms{1,4,5,6,7}
+    \maxterms{0,2,3}
+    \implicantedge{1}{1}{5}{5}
+    \implicant{6}{5}
+\end{karnaugh-map}
+\end{center}
+
+
+\[ S_{y_0} =  = {c_{s_2}+\overline{c_{s_1}}c_{s_0}}\]
+
+\subsubsection{K-map for $C_{in}$}
+It is the input carry bit of the adder used inside arithmetic unit.
+\begin{center}
+\begin{karnaugh-map}[2][4][1][$cs0$][$cs1$][$cs2$]
+    \minterms{1,3,4}
+    \maxterms{0, 2,  5,6,7}
+    \implicant{1}{3}
+    \implicant{4}{4}
+\end{karnaugh-map}
+\end{center}
+\[C_{in}=\overline{c_{s_2}}c_{s_0}+c_{s_2}\overline{c_{s_1}}.\overline{c_{s_0}}\]
+\[C_{in}=\overline{c_{s_2}}c_{s_0}+c_{s_2}.\overline{c_{s_1}+c_{s_0}}\]
+
+\end{document}
+

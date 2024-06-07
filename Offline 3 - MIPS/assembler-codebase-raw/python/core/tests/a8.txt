@@ -1,0 +1,32 @@
+addi $t0, $zero, 2      # 0         # $t0 = 2
+addi $t1, $zero, 3      # 1         # $t1 = 3
+bneq $t0, $t1, L6       # 2         # not equal, goto L6
+
+L1:
+
+addi $t2, $zero, 5      # 3         # $t2 = 5
+sw $t0, 1($t1)          # 4         # mem[4] = 2
+bneq $t2, $t0, L2       # 5         # not equal, goto L2  
+
+L2:
+
+push $t2                # 6-7       # stack top = 5                 # 2 cycles
+j L3                    # 8         # goto L3 
+
+L3:
+
+pop $t3                 # 9-10      # $t3 = stack top = 5           # 2 cycles
+j L4                    # 11        # goto L4         
+
+L4:
+
+subi $t4, $t3, 3        # 12         # $t4 = 5-3 = 2
+push 2($t4)             # 13-15      # stack top = mem[4] = 2        # 3 cycles
+
+L5:
+pop $t0                 # 16-17     # $t0 = stack top = 2           # 2 cycles           
+$addi $t0, $t0, 3       # 18        # $t0 = 2 + 3 = 5
+
+L6:
+
+j L1                    # 19        # goto L1  

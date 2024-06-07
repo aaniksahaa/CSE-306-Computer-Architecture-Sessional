@@ -1,0 +1,36 @@
+
+main:
+
+
+    # Initialization
+    addi $t1, $zero, 3          # $t1 = 3                    
+    subi $t2, $zero, 2          # $t2 = -2                  
+    
+    # Arithmetic operations
+    add $t0, $t1, $t2           # $t0 = 3 + (-2) = 1           # Addition: $t1 + $t2
+    sub $t3, $t1, $t2           # $t3 = 3 - (-2) = 5           # Subtraction: $t1 - $t2
+    addi $t4, $zero, -2         # $t4 = -2                     # addi
+    
+    # Memory operations
+    sw $t1, 0($zero)            # Memory[0] = 3                # Store word: Memory[$zero + result] = $t1
+    
+    # Logical and shift operations
+    srl $t2, $t2, 1             # $t2 = -2 >> 1 = 7           # Logical right shift: $t2 >> 1
+    sll $t3, $t3, 1             # $t3 = 5 << 1 = 10           #  Logical left shift: $t3 << 1
+    
+    # Conditional branch and jump
+    bneq $t2, $t3, label1  # Branch if $t2 == $t3
+    j end                       # Jump to end
+    
+label1:
+    bneq $t1, $t2, label2       # Branch if $t1 != $t2
+    
+label2:
+    # Logical and bitwise operations
+    or $t0, $t0, $t2            # $t0 = 1 | 7 = 7             # Bitwise OR: $t0 | $t2
+    andi $t2, $t4, 1            # $t2 = 14 & 1 = 0            # Bitwise AND with immediate: $t4 & 1
+    ori $t1, $t1, 5             # $t1 = 3 | 5 = 7             # Bitwise OR with immediate: $t1 | 5
+    and $t1, $t2, $t4           # $t1 = 0 & -2 = 0            # Bitwise AND: $t2 & $t4
+    
+end:
+    addi $t0, $zero, -5         # $t0 = -5    

@@ -1,0 +1,145 @@
+
+PC_REG.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000ae  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000102  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000102  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000134  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  00000170  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000005ca  00000000  00000000  00000190  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000531  00000000  00000000  0000075a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000214  00000000  00000000  00000c8b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000024  00000000  00000000  00000ea0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002dd  00000000  00000000  00000ec4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000a3  00000000  00000000  000011a1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  00001244  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 55 00 	jmp	0xaa	; 0xaa <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+#include <util/delay.h>
+
+
+int main(void)
+{
+	DDRA=0XFF;
+  6c:	2f ef       	ldi	r18, 0xFF	; 255
+  6e:	2a bb       	out	0x1a, r18	; 26
+	DDRB=0x00;
+  70:	17 ba       	out	0x17, r1	; 23
+	DDRC=0xFF;
+  72:	24 bb       	out	0x14, r18	; 20
+	DDRD=0x00;
+  74:	11 ba       	out	0x11, r1	; 17
+	
+	MCUCSR|=(1<<JTD);
+  76:	24 b7       	in	r18, 0x34	; 52
+  78:	20 68       	ori	r18, 0x80	; 128
+  7a:	24 bf       	out	0x34, r18	; 52
+	MCUCSR|=(1<<JTD);
+  7c:	24 b7       	in	r18, 0x34	; 52
+  7e:	20 68       	ori	r18, 0x80	; 128
+  80:	24 bf       	out	0x34, r18	; 52
+	
+	unsigned char pc;
+	int prevclk = 0;
+	int currclk = 0;
+  82:	40 e0       	ldi	r20, 0x00	; 0
+  84:	50 e0       	ldi	r21, 0x00	; 0
+  86:	01 c0       	rjmp	.+2      	; 0x8a <main+0x1e>
+#define F_CPU 1000000
+#include <util/delay.h>
+
+
+int main(void)
+{
+  88:	ac 01       	movw	r20, r24
+	int reset =0;
+	
+	/* Replace with your application code */
+	while (1) {
+		prevclk = currclk;
+		char b = PIND;
+  8a:	20 b3       	in	r18, 0x10	; 16
+		currclk = ( b & 0b00000001);
+  8c:	82 2f       	mov	r24, r18
+  8e:	81 70       	andi	r24, 0x01	; 1
+  90:	90 e0       	ldi	r25, 0x00	; 0
+		reset =    ( b & 0b00000010)>>1;
+		
+		
+		if(reset==1){
+  92:	21 ff       	sbrs	r18, 1
+  94:	02 c0       	rjmp	.+4      	; 0x9a <main+0x2e>
+			PORTA = 0x00;
+  96:	1b ba       	out	0x1b, r1	; 27
+  98:	f7 cf       	rjmp	.-18     	; 0x88 <main+0x1c>
+		}
+		else{
+			if(prevclk==1 && currclk==0){
+  9a:	41 30       	cpi	r20, 0x01	; 1
+  9c:	51 05       	cpc	r21, r1
+  9e:	a1 f7       	brne	.-24     	; 0x88 <main+0x1c>
+  a0:	00 97       	sbiw	r24, 0x00	; 0
+  a2:	91 f7       	brne	.-28     	; 0x88 <main+0x1c>
+				pc = PINB;
+  a4:	26 b3       	in	r18, 0x16	; 22
+				PORTA = pc;
+  a6:	2b bb       	out	0x1b, r18	; 27
+  a8:	ef cf       	rjmp	.-34     	; 0x88 <main+0x1c>
+
+000000aa <_exit>:
+  aa:	f8 94       	cli
+
+000000ac <__stop_program>:
+  ac:	ff cf       	rjmp	.-2      	; 0xac <__stop_program>

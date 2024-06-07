@@ -1,0 +1,4 @@
+addi $t0, $zero, 5
+push $t0
+addi $t1, $zero, 3
+pop $t1 

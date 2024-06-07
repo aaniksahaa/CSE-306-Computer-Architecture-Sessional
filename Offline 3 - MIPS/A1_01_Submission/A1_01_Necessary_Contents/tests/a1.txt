@@ -1,0 +1,24 @@
+# MIPS assembly code
+
+        addi $t1, $zero, 3		    # $t1 = 3 					
+        subi $t2, $zero, -2		    # $t2 = 2 		
+        add $t0, $t1, $t2 		    # $t0 = 5 				
+        sub $t3, $t1, $t2		    # $t3 = 1			
+        nor $t4, $t0, $t2		    # $t4 = -8 	
+        sw $t1, 3($t2)		        # m[5] = 3	
+        srl $t2, $t2, 1		        # $t2 = 1 				
+        beq $t2, $t3, label1	    # branching will execute
+        j end                       
+label1:	sll $t3, $t3, 1	            # $t3 = 2				
+        lw $t2, 4($t2)		        # $t2 = 3		
+        j label2			        # jump will execute 	
+label3: or $t0, $t0, $t2	        # $t0 = 7 	
+        andi $t2, $t4, 1 		    # $t2 = 0 			
+        ori $t1, $t1, 5		        # $t1 = 7 			
+        and $t1, $t2, $t4		    # $t1 = 0 			
+        j end				        # jump will execute 	
+label2: bneq $t0, $t2, label3	    # branching will execute	
+end:
+
+
+addi $t0, $zero, -5

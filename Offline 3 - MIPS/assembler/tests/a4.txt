@@ -1,0 +1,9 @@
+    addi $t0, $t0, 5    # 1
+    addi $t1, $t1, 1    # 2
+    addi $t2, $t2, 0    # 3
+L1:
+    beq $t1, $t0, end   # 4
+    add $t2, $t2, $t1   # 5
+    addi $t1, $t1, 1    # 6
+    j L1                # 7
+end:

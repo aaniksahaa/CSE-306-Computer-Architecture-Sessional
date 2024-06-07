@@ -1,0 +1,5 @@
+1. oblique wires
+2. leds for pc, led for outputs
+3. code refactor, logic change, optimization
+4. ic position change
+5. 

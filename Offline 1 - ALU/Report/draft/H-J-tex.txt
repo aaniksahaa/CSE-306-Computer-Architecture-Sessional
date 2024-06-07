@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage[a4paper, total={6.5in, 8.5in}]{geometry}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{booktabs}
+\usepackage[label=corner]{karnaugh-map}
+\usepackage{tabularray}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{hyperref}
+\title{Draft - H-I-J}
+\author{Anik}
+
+\begin{document}
+
+\section{The Simulator Used along with the Version Number}
+Logisim - 2.7.1
+
+\newpage
+
+\section{Contribution of Each Member}
+
+
+
+\subsection{Logic Design and Simplification of Expressions}
+
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|m{10cm}|}
+\hline
+Student ID & Surname & Contribution \\ \hline
+2005001    & Anik    & Prepared block diagram with IC pin numbers mentioned, obtained simplified expressions for $Sx_1$, $Sx_0$, $Sy_0$             \\ \hline
+2005012    & Jahin   &  Prepared truth tables for $Sx_1$, $Sx_0$, $Sy_0$             \\ \hline
+2005013    & Muhit   &  Prepared truth tables for $X_i$, $Y_i$, $C_{in}$            \\ \hline
+2005017    & Amim    &  Prepared block diagram with IC pin numbers mentioned, obtained simplified expressions for  $X_i$, $Y_i$, $C_{in}$      \\ \hline
+2005023    & Jaber   &  Obtained primary expressions for the Flags $Z$(Zero Flag) and $V$(Overflow Flag)     \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{IC Count Optimization}
+
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|m{10cm}|}
+\hline
+Student ID & Surname & Contribution \\ \hline
+2005001    & Anik    & Performed optimal manipulations in preprocessing to reduce the number of IC $7408$, replaced a NOT gate with XOR gate to lessen one extra IC $7404$            \\ \hline
+2005012    & Jahin   &  Developed synchronization among distinct modules to efficiently use maximum ports of ICs and to keep the modules disjoint            \\ \hline
+2005013    & Muhit   &  Introduced the possibility of using MUX to avoid using too many gates in preprocessing, resolved errors related to optimization           \\ \hline
+2005017    & Amim    &  Found a way of determining Overflow without explicitly obtaining the penultimate carry, thereby reducing one extra IC $7483$, finalized the solution containing 12 ICs      \\ \hline
+2005023    & Jaber   &  Wrote a Python bot to scrape SOP forms from the website \href{http://www.32x8.com/index.html}{32x8.com} for automated comparisons            \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Logisim Simulation}
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|p{10cm}|}
+\hline
+Student ID & Surname & Contribution \\ \hline
+2005001    & Anik    & Developed Control Preprocessor which generates $Sx_1$, $Sx_0$, $Sy_0$, $C_{in}$ from $cs_2$, $cs_1$, $cs_0$            \\ \hline
+2005012    & Jahin   & Developed the circuitry of the full adder (IC $7483$)  which generates $S_3$, $S_2$, $S_1$, $S_0$          \\ \hline
+2005013    & Muhit   &  Developed Input preprocessor (jointly) which generates $X_i$, $Y_i$ from $A_i$, $B_i$, $Sx_1$, $Sx_0$, $Sy_0$      \\ \hline
+2005017    & Amim    &  Developed Input preprocessor (jointly) which generates $X_i$, $Y_i$ from $A_i$, $B_i$, $Sx_1$, $Sx_0$, $Sy_0$      \\ \hline
+2005023    & Jaber   &  Developed the circuitry of flags calculation which generates $S$, $C$, $Z$, $V$     \\ \hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\subsection{Hardware Implementation}
+
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|p{10cm}|}
+\hline
+Student ID & Surname & Contribution \\ \hline
+2005001    & Anik    & Developed Control Preprocessor which generates $Sx_1$, $Sx_0$, $Sy_0$, $C_{in}$ from $cs_2$, $cs_1$, $cs_0$, assisted in developing the circuitry of Full Adder and flags calculation            \\ \hline
+2005012    & Jahin   & Developed a switching circuit for controlling the 11 input bits through three 4-bit DIP switches, also assisted in developing an output viewer circuit consisting of LEDs    \\ \hline
+2005013    & Muhit   &  Developed Input preprocessor (jointly) which generates $X_i$, $Y_i$ from $A_i$, $B_i$, $Sx_1$, $Sx_0$, $Sy_0$ and assisted in the circuitry of Full Adder and flags calculation   \\ \hline
+2005017    & Amim    &  Developed Input preprocessor (jointly) which generates $X_i$, $Y_i$ from $A_i$, $B_i$, $Sx_1$, $Sx_0$, $Sy_0$ and assisted in the circuitry of Full Adder and flags calculation    \\ \hline
+2005023    & Jaber   &  Assisted in developing an output viewer circuit consisting of LEDs, finalized the hardware with improvements in structural integrity     \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Verification and Testing}
+
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|p{10cm}|}
+\hline
+Student ID & Surname & Contribution \\ \hline
+2005001    & Anik    & Developed a python script for verifying the generated truth table in Logisim through comparison with given functions           \\ \hline
+2005012    & Jahin   & Refurnihsed the switching circuit for easy inputting mechanism, Performed random testing    \\ \hline
+2005013    & Muhit   &  Performed extensive random testing and resolved bugs through backtracking   \\ \hline
+2005017    & Amim    &  Performed crucial debugging while performing the verification process, performed random testing   \\ \hline
+2005023    & Jaber   &  Developed a python script for randomly generating testcases and their corresponding solutions based on given control bits    \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Report Preparation}
+
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|p{10cm}|}
+\hline
+Student ID & Surname & Contribution \\ \hline
+2005001    & Anik    & Section $A$, $B$, $J$           \\ \hline
+2005012    & Jahin   & Section $E$, $F$    \\ \hline
+2005013    & Muhit   & Section $D$   \\ \hline
+2005017    & Amim    & Section $C$  \\ \hline
+2005023    & Jaber   & Section $G$, $H$    \\ \hline
+\end{tabular}
+\end{table} 
+
+
+\end{document}
+

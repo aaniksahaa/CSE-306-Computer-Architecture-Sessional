@@ -1,0 +1,3 @@
+1.	Design Freedom - ALU which control which function?
+2.	2 Adders 7483, 4 Mux
+3.	
